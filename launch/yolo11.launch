@@ -1,0 +1,10 @@
+<launch>
+    <!-- 启动 yolov8_seg_ros 节点 -->
+    <node pkg="yolo11" type="yolo11_ros" name="yolo11"  output="screen" />
+    <!-- 启动 rqt_image_view 节点 -->
+    <node pkg="rqt_image_view" type="rqt_image_view" name="rqt"  output="screen" />
+    <!-- 设置参数 -->
+    <rosparam file="$(find yolo11)/config/params.yaml" command="load" />
+    <!-- 启动 相机 -->
+    <include file="/home/cll/3rdParty/realsense_ws/src/realsense2_camera/launch/rs_camera.launch"/>
+</launch>

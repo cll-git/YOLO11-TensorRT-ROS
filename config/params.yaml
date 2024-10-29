@@ -1,0 +1,5 @@
+image_height: 480
+image_width: 864
+image_topic_out: /yolo/detect_result
+image_topic_in: /camera/color/image_raw
+engine_file_path: /home/cll/models/yolo11/yolo11x-864-480-fp32.engine
