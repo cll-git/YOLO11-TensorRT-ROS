@@ -13,21 +13,20 @@ using namespace nvinfer1;
 class YoloDetector
 {
 public:
-    YoloDetector(
-        const std::string trtFile,
+    explicit YoloDetector(
+        std::string  trtFile,
         int gpuId=kGpuId,
         float nmsThresh=kNmsThresh,
         float confThresh=kConfThresh,
         int numClass=kNumClass
     );
     ~YoloDetector();
-    std::vector<Detection> inference(cv::Mat& img);
+    std::vector<Detection> inference(cv::Mat& img) const;
     static void draw_image(cv::Mat& img, std::vector<Detection>& inferResult);
 
 private:
     void get_engine();
 
-private:
     Logger              gLogger;
     std::string         trtFile_;
 
@@ -35,16 +34,16 @@ private:
     float               nmsThresh_;
     float               confThresh_;
 
-    ICudaEngine *       engine;
-    IRuntime *          runtime;
+    ICudaEngine *       engine{};
+    IRuntime *          runtime{};
     IExecutionContext * context;
 
-    cudaStream_t        stream;
+    cudaStream_t        stream{};
 
     float *             outputData;
     std::vector<void *> vBufferD;
-    float *             transposeDevice;
-    float *             decodeDevice;
+    float *             transposeDevice{};
+    float *             decodeDevice{};
 
     int                 OUTPUT_CANDIDATES;  // 8400: 80 * 80 + 40 * 40 + 20 * 20
 };

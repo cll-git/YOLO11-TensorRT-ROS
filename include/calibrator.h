@@ -7,13 +7,13 @@
 
 using namespace nvinfer1;
 
-
 class Int8EntropyCalibrator2 : public IInt8EntropyCalibrator2
 {
 public:
-    Int8EntropyCalibrator2(int batch_size, int input_w, int input_h, const char* img_dir, const char* calib_table_name, bool read_cache=true);
+    Int8EntropyCalibrator2(int batch_size, int input_w, int input_h, const char* img_dir, const char* calib_table_name,
+                           bool read_cache = true);
 
-    virtual ~Int8EntropyCalibrator2();
+    ~Int8EntropyCalibrator2() override;
     int getBatchSize() const noexcept override;
     bool getBatch(void* bindings[], const char* names[], int nbBindings) noexcept override;
     const void* readCalibrationCache(size_t& length) noexcept override;

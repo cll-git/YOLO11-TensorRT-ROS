@@ -75,8 +75,6 @@ void ros_node::callback_func(const sensor_msgs::ImageConstPtr& msg)
 
 int main(int argc, char* argv[])
 {
-    // cuda:0
-    cudaSetDevice(0);
     ros::init(argc, argv, "yolo11_detect");
     ros::NodeHandle nh;
     std::string image_topic_in;

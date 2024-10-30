@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <utility>
 
 #include <NvOnnxParser.h>
 
@@ -13,12 +14,12 @@ using namespace nvinfer1;
 
 
 YoloDetector::YoloDetector(
-    const std::string trtFile,
+    std::string  trtFile,
     int gpuId,
     float nmsThresh,
     float confThresh,
     int numClass
-): trtFile_(trtFile), nmsThresh_(nmsThresh), confThresh_(confThresh), numClass_(numClass)
+): trtFile_(std::move(trtFile)), nmsThresh_(nmsThresh), confThresh_(confThresh), numClass_(numClass)
 {
     gLogger = Logger(ILogger::Severity::kERROR);
     cudaSetDevice(gpuId);
@@ -104,7 +105,7 @@ YoloDetector::~YoloDetector()
     delete runtime;
 }
 
-std::vector<Detection> YoloDetector::inference(cv::Mat& img)
+std::vector<Detection> YoloDetector::inference(cv::Mat& img) const
 {
     if (img.empty()) return {};
 
