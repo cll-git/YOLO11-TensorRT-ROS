@@ -17,10 +17,14 @@ find_package(OpenCV 4.9.0 REQUIRED)
 
 # TensorRT
 set(TensorRT_INCLUDE_DIRS /home/cll/TensorRT/include)
-file(GLOB TensorRT_LIBRARIES /home/cll/TensorRT/lib/*.so)
+set(TensorRT_LIBRARIES
+        /home/cll/TensorRT/lib/libnvinfer.so
+        /home/cll/TensorRT/lib/libnvinfer_plugin.so
+        /home/cll/TensorRT/lib/libnvparsers.so
+        /home/cll/TensorRT/lib/libnvonnxparser.so)
 
 # cv_bridge
-set(cv_bridge_DIR /usr/local/share/cv_bridge/cmake)
+set(cv_bridge_DIR /usr/local/lib/cv_bridge/cmake)
 
 find_package(catkin REQUIRED COMPONENTS
         cv_bridge
@@ -47,7 +51,7 @@ list(APPEND ALL_LIBS
 )
 
 
-include_directories(include ${INCLUDE_DIRS} ${catkin_INCLUDE_DIRS})
+include_directories(include ${ALL_INCLUDE_DIRS} ${catkin_INCLUDE_DIRS})
 
 add_executable(${PROJECT_NAME}_ros
         src/main.cpp
@@ -67,4 +71,5 @@ target_link_libraries(
         ${PROJECT_NAME}_ros
         PRIVATE
         ${ALL_LIBS}
+
 )
