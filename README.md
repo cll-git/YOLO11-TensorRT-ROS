@@ -63,4 +63,4 @@ Besides, set the **'model_path'** to the path of the model file.
 
     4. Run 'roslaunch yolov11 yolov11.launch'
 
-After successfully running the launch file, choose the topic '**/yolo/detect_result**' in rqt_image_view to view the segmentation results.
+After successfully running the launch file, choose the topic '**/yolo/detect_result**' in rqt_image_view to view the detect results.
